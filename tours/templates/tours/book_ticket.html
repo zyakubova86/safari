@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Авиакасса{% endblock %}
+
+{% block content %}
+    <main id="content" class="site-main">
+
+        <!-- Home slider html start -->
+        <section class="home-slider-section">
+            <div class="home-slider">
+                <div class="home-banner-items">
+                    <div class="banner-inner-wrap"
+                         style="background-image: url({% static 'images/aviakassa/b3.jpg' %});"></div>
+                    <div class="banner-content-wrap">
+                        <div class="container">
+                            <div class="banner-content text-center">
+                                <h2 class="banner-title">Авиакасса</h2>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overlay"></div>
+                </div>
+            </div>
+        </section>
+        <!-- slider html end -->
+
+        <!-- Home search field html start -->
+        <div class="trip-search-section shape-search-section">
+            <div class="slider-shape"></div>
+            <div class="container">
+                <div class="trip-search-inner white-bg d-flex">
+                    <div id="home_booking_message"></div>
+
+                    <form action="#" method="get" class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="from" class="form-label">Откуда</label>
+                            <input type="text" class="form-control" id="from" name="from"
+                                   placeholder="City or Airport">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="to" class="form-label">Куда</label>
+                            <input type="text" class="form-control" id="to" name="to"
+                                   placeholder="City or Airport">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="departure" class="form-label">Прибытие</label>
+                            <input type="date" class="form-control" id="departure" name="departure">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="return" class="form-label">Отправление</label>
+                            <input type="date" class="form-control" id="return" name="return">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="adults" class="form-label">Взрослые</label>
+                            <select class="form-select" id="adults" name="adults">
+                                <option class="text-center" value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="children" class="form-label">Дети</label>
+                            <select class="form-select" id="children" name="children">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="class" class="form-label">Класс</label>
+                            <select class="form-select" id="class" name="class">
+                                <option value="economy">Эконом</option>
+                                <option value="business">Бизнес</option>
+                                <option value="first">Первый класс</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-4 text-right">
+                            <button type="submit" class="btn btn-primary px-5">Найти билеты</button>
+                        </div>
+                    </form>
+
+                    <div id="ticket-booking-message"></div>
+                </div>
+            </div>
+        </div>
+        <!-- search field html end -->
+
+        <!-- Popular Destinations -->
+        {% comment %}<section class="py-5">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <h2 class="fw-bold">Популярные направления</h2>
+                        <p class="text-muted">Find great deals on flights to these popular destinations</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <img src="{% static 'images/aviakassa/paris.webp' %}"
+                                 class="card-img-top" alt="Paris">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Paris, France</h5>
+                                <p class="text-muted">Flights starting from $399</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">View Deals</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                 class="card-img-top" alt="New York">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">New York, USA</h5>
+                                <p class="text-muted">Flights starting from $499</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">View Deals</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1988&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                 class="card-img-top" alt="Tokyo">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Tokyo, Japan</h5>
+                                <p class="text-muted">Flights starting from $649</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">View Deals</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                 class="card-img-top" alt="Dubai">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Dubai, UAE</h5>
+                                <p class="text-muted">Flights starting from $549</p>
+                                <a href="#" class="btn btn-outline-primary btn-sm">View Deals</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>{% endcomment %}
+        <!-- Popular Destinations End -->
+
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-md-12">
+                        <h2 class="fw-bold">Why Book with Us</h2>
+                        <p class="text-muted">We offer the best deals and service for your air travel needs</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <i class="fas fa-dollar-sign text-primary fa-3x mb-3"></i>
+                                <h4>Best Price Guarantee</h4>
+                                <p class="text-muted">We guarantee the lowest prices on flights to any destination
+                                    worldwide.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <i class="fas fa-headset text-primary fa-3x mb-3"></i>
+                                <h4>24/7 Customer Support</h4>
+                                <p class="text-muted">Our customer service team is available around the clock to assist
+                                    you.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <i class="fas fa-shield-alt text-primary fa-3x mb-3"></i>
+                                <h4>Secure Booking</h4>
+                                <p class="text-muted">Your payment and personal information are always protected with
+                                    us.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    {% comment %}<script>
+        $('#home_booking_form').on('submit', function (e) {
+            e.preventDefault();
+
+            $('#home_booking_message').html('');
+
+            let form_data = $(this).serialize();
+            {#console.log(form_data)#}
+            let csrfToken = $("#csrf_token").val();
+
+
+            $.ajax({
+                url: "{% url 'home' %}",
+                headers: {"X-CSRFToken": csrfToken},
+                method: "POST",
+                data: form_data,
+                success: function (response) {
+                    if (response.success) {
+                        {#console.log(response.success)#}
+                        {#alert(response.success);#}
+                        $('#home_booking_message').html('<p style="color: green;">' + response.success + '</p>');
+                        $('#home_booking_form')[0].reset();
+
+                        // Удаляем сообщение через 5 секунд
+                        setTimeout(function () {
+                            $('#home_booking_message').fadeOut('slow', function () {
+                                $(this).html('').show();
+                            });
+                        }, 5000);
+                    } else if (response.error) {
+                        alert(response.error);
+                    }
+                },
+                error: function (error) {
+                    {#console.log("error:", error);#}
+                    {#alert("Бронирование принято! Мы свяжемся с вами в ближайшее время");#}
+                    $('#home_booking_message').html('<p style="color: red; text-align: center"> Бронирование принято! Мы свяжемся с вами в ближайшее время</p>');
+                }
+            });
+        });
+    </script>{% endcomment %}
+
+{% endblock %}
+

@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ tour.title_en }}{% endblock %}
+
+{% block content %}
+
+    <main id="content" class="site-main">
+        <!-- Inner Banner html start-->
+        <section class="inner-banner-wrap">
+            <div class="inner-baner-container"
+                 style="background-image: url({% if tour.banner_image %}{{ tour.banner_image.url }} {% endif %});">
+                <div class="container">
+                    <div class="inner-banner-content">
+                        {% if tour.title_en %}
+                            <h1 class="inner-title">{{ tour.title_en }}</h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="inner-shape"></div>
+        </section>
+        <!-- Inner Banner html end-->
+        <div class="single-tour-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="single-tour-inner">
+                            <h2>{{ tour.short_description_en }}</h2>
+                            <figure class="feature-image">
+                                <img src="{{ tour.main_image.url }}" alt="">
+                                <div class="package-meta text-center">
+                                    <ul>
+                                        <li>
+                                            <i class="far fa-clock"></i>
+                                            {{ tour.duration_days }} days / {{ tour.duration_nights }} nights
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-user-friends"></i>
+                                            Guests: {{ tour.people_count }}
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-map-marked-alt"></i>
+                                            {{ tour.location_en }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </figure>
+                            <div class="tab-container">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                           role="tab" aria-controls="overview" aria-selected="true">DESCRIPTION</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="program-tab" data-toggle="tab" href="#program"
+                                           role="tab" aria-controls="program" aria-selected="false">PROGRAM</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <!-- Overview tab start-->
+                                    <div class="tab-pane fade show active" id="overview" role="tabpanel"
+                                         aria-labelledby="overview-tab">
+                                        <div class="overview-content">
+                                            {% if tour.short_description_en %}
+                                                <h3>{{ tour.short_description_en }}</h3>
+                                            {% endif %}
+
+                                            {% if tour.itinerary_en %}
+                                                <h4>{{ tour.itinerary_en }}</h4>
+                                            {% endif %}
+
+                                            {% if tour.full_description_en %}
+                                                <div class="full-description">
+                                                    {{ tour.full_description_en|safe }}
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                    <!-- Overview tab end-->
+
+                                    <!-- Program tab start-->
+                                    <div class="tab-pane" id="program" role="tabpanel" aria-labelledby="program-tab">
+
+                                        <div class="itinerary-content">
+                                            <h3>Program <span>( {{ tour.duration_days }} days )</span></h3>
+                                        </div>
+                                        {% for program in programs %}
+                                            <div class="itinerary-timeline-wrap">
+                                                <ul>
+                                                    <li>
+                                                        <div class="timeline-content">
+                                                            <div class="day-count">Day
+                                                                <span>{{ program.day_number }}</span>
+                                                            </div>
+                                                            {% if program.title_en %}
+                                                                <h4>{{ program.title_en }}</h4>
+                                                            {% endif %}
+
+                                                            {% if program.description_en %}
+                                                                <p>{{ program.description_en|safe }}</p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- End Program tab -->
+                                </div>
+                            </div>
+
+                            {% if gallery_images %}
+                                <!-- Gallery -->
+                                <div class="single-tour-gallery">
+                                    <h3>GALLERY / PHOTOS</h3>
+
+                                    <div class="single-tour-slider">
+                                        {% for image in gallery_images %}
+                                            <div class="single-tour-item">
+                                                <figure id="gallery_container" class="feature-image">
+                                                    <img src="{{ image.gallery_image.url }}" alt="">
+                                                </figure>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- End Gallery -->
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="sidebar">
+                            <div class="package-price">
+                                <h5 class="price">
+                                    {% if tour.price %}
+                                        <span>${{ tour.price | floatformat:0 }}</span>
+                                    {% else %}
+                                        <span>Price on request</span>
+                                    {% endif %}
+                                </h5>
+
+                            </div>
+                            <div class="widget-bg booking-form-wrap">
+                                <h4 class="bg-title">Booking</h4>
+                                <form id="tour_detail_booking-form" class="booking-form"
+                                      action="{% url 'tour_detail_en' tour.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input type="hidden" name="booking_tour_id" value="{{ tour.pk }}">
+                                                <input name="booking_tour_title" type="text" value="{{ tour.title_en }}"
+                                                       readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input name="booking_email" type="text" placeholder="Email" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input name="booking_guest_number" type="number"
+                                                       placeholder="Number of guests" required value="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input id="id_booking_arrival_date" class="input-date-picker"
+                                                       type="text" name="booking_arrival_date"
+                                                       autocomplete="off" readonly="readonly" placeholder="Date"
+                                                       required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group submit-btn">
+                                                <input type="submit" name="submit" value="Book now">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="tour_detail-booking-message"></div>
+                            </div>
+                            <div class="widget-bg widget-support-wrap">
+                                <div class="icon">
+                                    <i class="fas fa-phone-volume"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h5>HELP AND SUPPORT</h5>
+                                    <a href="telto:+998887156000" class="phone">+998887156000</a>
+                                </div>
+                            </div>
+
+                            {% comment %}<div class="widget-bg information-content text-center">
+                            <h5>TRAVEL TIPS</h5>
+                            <h3>НУЖНА ИНФОРМАЦИЯ О ТУРАХ?</h3>
+                            <p>Mollit voluptatem perspiciatis convallis elementum corporis quo veritatis aliquid
+                                blandit, blandit torquent, odit placeat. </p>
+                            <a href="#" class="button-primary">GET A QUOTE</a>
+                        </div>{% endcomment %}
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        $('#tour_detail_booking-form').on('submit', function (e) {
+            e.preventDefault();
+
+            $('#tour_detail-booking-message').html('');
+
+            let form_data = $(this).serialize();
+            let csrfToken = $("#csrf_token").val();
+
+
+            $.ajax({
+                {#url: "/tour/" + "{{ tour.pk }}" + "/",#}
+                url: "{% url 'tour_detail' tour.pk %}",
+                headers: {"X-CSRFToken": csrfToken},
+                method: "POST",
+                data: form_data,
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.success);
+                        {#$('#tour_detail-booking-message').html('<p style="color: green;">' + response.success + '</p>');#}
+                        $('#tour_detail_booking-form')[0].reset();
+                    } else if (response.error) {
+                        alert(response.error);
+                    }
+                },
+                error: function (error) {
+                    console.log("error:", error);
+                    alert("Бронирование принято! Мы свяжемся с вами в ближайшее время");
+                    {#$('#tour_detail-booking-message').html('<p style="color: red; text-align: center"> Ошибка на сервере. Пожалуйста, попробуйте позже</p>');#}
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

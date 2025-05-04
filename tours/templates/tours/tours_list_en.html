@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Tours{% endblock %}
+
+{% block content %}
+
+    <main id="content" class="site-main">
+
+        <!-- Inner Banner html start-->
+        <section class="inner-banner-wrap">
+            <div class="inner-baner-container" style="background-image: url({{ category.image.url }});">
+                <div class="container">
+                    <div class="inner-banner-content">
+                        <h1 class="inner-title">{{ category.name_en }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-shape"></div>
+        </section>
+        <!-- Inner Banner html end-->
+
+        <!-- packages html start -->
+        <div class="package-section">
+            <div class="container">
+                <div class="package-inner">
+                    <div class="row">
+                        {% for tour in tours %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="package-wrap">
+                                    <figure class="feature-image">
+                                        <a href="{% url 'tour_detail_en' tour.pk %}">
+                                            {% if tour.lists_page_image %}
+                                                <img src="{{ tour.lists_page_image.url }}" alt="{{ tour.title_en }}">
+                                            {% elif tour.main_image %}
+                                                <img src="{{ tour.main_image.url }}" alt="{{ tour.title_en }}">
+                                            {% else %}
+                                                <img src="{% static 'images/img5.jpg' %}" alt="{{ tour.title_en }}">
+                                            {% endif %}
+                                        </a>
+                                    </figure>
+                                    <div class="package-price">
+                                        <h6>
+                                            {% if tour.price %}
+                                                <span>${{ tour.price }}</span>
+                                            {% else %}
+                                                <span>Price on request</span>
+                                            {% endif %}
+                                        </h6>
+                                    </div>
+                                    <div class="package-content-wrap">
+                                        <div class="package-meta text-center">
+                                            <ul>
+                                                <li>
+                                                    <i class="far fa-clock"></i>
+                                                    {{ tour.duration_days }} days / {{ tour.duration_nights }} nights
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    {{ tour.location_en }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="package-content">
+                                            <h3>
+                                                {% if tour.title_en %}
+                                                    <a href="{% url 'tour_detail_en' pk=tour.pk %}">{{ tour.title_en }}</a>
+                                                {% endif %}
+
+                                            </h3>
+                                            {% if tour.short_description_en %}
+                                                <p>{{ tour.short_description_en }}</p>
+                                            {% endif %}
+                                            <div class="btn-wrap">
+                                                <a href="{% url 'tour_detail_en' pk=tour.pk %}"
+                                                   class="button-text width-6">More details
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- packages html end -->
+
+    </main>
+
+{% endblock %}
+
+
+
+         

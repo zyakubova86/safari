@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Узбекстан{% endblock %}
+
+{% block content %}
+
+    <main id="content" class="site-main">
+        <!-- Inner Banner html start-->
+        <section class="inner-banner-wrap">
+            <div class="inner-baner-container"
+                 style="background-image: url({% static 'images/uzbekistan/choynak.jpg' %});">
+                <div class="container">
+                    <div class="inner-banner-content">
+                        <h1 class="inner-title">Узбекистан</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-shape"></div>
+        </section>
+        <!-- Inner Banner html end-->
+
+        <div class="single-tour-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="single-tour-inner">
+                            <h2 class="text-center">ПОЧЕМУ УЗБЕКИСТАН?</h2>
+                            <p>
+                                Узбекистан — это страна с богатейшим историческим и культурным наследием, расположенная
+                                в самом сердце Центральной Азии. Это место, где оживают легенды Великого шёлкового пути,
+                                а древние города, такие как Самарканд, Бухара и Хива, до сих пор хранят дух тысячелетий.
+
+                                Самарканд с его грандиозной площадью Регистан, Бухара с величественным ансамблем Пои
+                                Калон, и Хива с её великолепной крепостью Ичан-Кала представляют собой настоящие музеи
+                                под открытым небом. Эти города не только поражают своей архитектурой, но и дарят
+                                глубокое погружение в культуру и традиции востока.
+                            </p>
+                            <p>
+                                Гостеприимство узбекского народа — это отдельная причина посетить Узбекистан. Здесь вас
+                                встретят с широкой улыбкой, откровенностью и теплотой. Узбекская кухня — настоящая
+                                гастрономическая жемчужина региона. Плов, самса, лагман, манты и множество других блюд
+                                порадуют любого гурмана.
+
+                                Кроме того, Узбекистан активно развивается. Строятся современные отели, действует сеть
+                                скоростных поездов, улучшаются туристические сервисы — всё это делает путешествие по
+                                стране комфортным и насыщенным.
+                            </p>
+                            <p>
+                                Узбекистан — это уникальное место, где встречаются древность и современность, где каждая
+                                улица дышит историей, а каждый день открывает новые впечатления. Если вы ищете
+                                путешествие с душой — Узбекистан станет для вас идеальным направлением.
+                            </p>
+
+
+                            <div id="uzbekistan-tab-container" class="tab-container">
+                                <ul class="nav nav-tabs nav-underline" id="myTab" role="tablist">
+                                    {% for cat in cats_uzbekistan %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if forloop.first %}active{% endif %}"
+                                               id="tab-{{ cat.pk }}" data-toggle="tab"
+                                               href="#tab-pane-{{ cat.pk }}" role="tab"
+                                               aria-controls="tab-pane-{{ cat.pk }}"
+                                               aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                                                <h5>{{ cat.name }}</h5>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    {% for cat in cats_uzbekistan %}
+                                        <div class="tab-pane fade {% if forloop.first %}show active{% endif %}"
+                                             id="tab-pane-{{ cat.pk }}"
+                                             role="tabpanel" aria-labelledby="tab-{{ cat.pk }}">
+                                            <div class="overview-content">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+                                                        <figure class="feature-image mb-0">
+                                                            <img class="img-fluid w-100 rounded" src="{{ cat.image.url }}" alt="" style="min-height: 250px; object-fit: cover !important; border-radius: 8px;">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                                        <div class="uzb_tab_text">
+                                                            <p>{{ cat.text | safe }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+
+                            <div class="single-tour-gallery">
+                                <h3>Главные города Узбекистана</h3>
+
+                                <div class="uzbekistan_cities_slider">
+                                    {% for city in cities %}
+                                        <div id="uzbekistan-city" class="desti-item">
+                                            <figure class="desti-image uzbekistan-image">
+                                                <img src="{{ city.image.url }}" alt="">
+                                            </figure>
+                                            <div class="meta-cat bg-meta-cat">
+                                                <a href="#">{{ city.name }}</a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}

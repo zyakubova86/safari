@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+
+    <main id="content" class="site-main">
+        <!-- Inner Banner html start-->
+        <section class="inner-banner-wrap">
+            <div class="inner-baner-container" style="background-image: url({% static 'images/contact/cb2.jpg' %}">
+                <div class="container">
+                    <div class="inner-banner-content">
+                        <h1 class="inner-title">Контакты</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-shape"></div>
+        </section>
+        <!-- Inner Banner html end-->
+        <!-- contact form html start -->
+        <div class="contact-page-section">
+            {% for contact in contacts %}
+            <div class="contact-form-inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="contact-from-wrap">
+                                <div class="section-heading">
+                                    <h5 class="dash-style">О НАС</h5>
+                                    <h1>Safari Tour</h1>
+                                    <p>{{ contact.about_us | safe}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="contact-detail-wrap">
+                                <h3 class="text-center">Нужна помощь? Свяжитесь с нами — мы всегда на связи!</h3>
+                                <p>Наша команда с радостью ответит на все ваши вопросы,
+                                    подскажет и поможет выбрать лучшее предложение для вашего путешествия.</p>
+                                <div class="details-list">
+                                    <ul>
+                                        <li>
+                                       <span class="icon">
+                                          <i class="fas fa-map-signs"></i>
+                                       </span>
+                                            <div class="details-content">
+                                                <h4>Адрес</h4>
+                                                <span>{{ contact.address }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                       <span class="icon">
+                                          <i class="fas fa-envelope-open-text"></i>
+                                       </span>
+                                            <div class="details-content">
+                                                <h4>Email почта</h4>
+                                                <span>{{ contact.email }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                       <span class="icon">
+                                          <i class="fas fa-phone-volume"></i>
+                                       </span>
+                                            <div class="details-content">
+                                                <h4>Телефон</h4>
+                                                <span>{{ contact.phone }}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="contct-social social-links">
+                                    <h3>Мы в социальных сетях</h3>
+                                    <ul>
+                                        <li><a href="#"><i class="fab fa-telegram" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %}<div class="map-section">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317838.95217734354!2d-0.27362819527326965!3d51.51107287614788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604c7c7eb9be3%3A0x3918653583725b56!2sRiverside%20Building%2C%20County%20Hall%2C%20Westminster%20Bridge%20Rd%2C%20London%20SE1%207JA%2C%20UK!5e0!3m2!1sen!2snp!4v1632135241093!5m2!1sen!2snp"
+                        height="400" allowfullscreen="" loading="lazy"></iframe>
+            </div>{% endcomment %}
+            {% endfor %}
+        </div>
+        <!-- contact form html end -->
+    </main>
+
+{% endblock %}

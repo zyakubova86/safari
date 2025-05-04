@@ -1,0 +1,24 @@
+/* Custom CSS classes for background images */
+.banner-bg-1 {
+    background-image: url('../images/slider-banner-1.jpg');
+}
+
+.banner-bg-2 {
+    background-image: url('../images/slider-banner-2.jpg');
+}
+
+.callback-bg {
+    background-image: url('../images/img8.jpg');
+}
+
+.testimonial-bg {
+    background-image: url('../images/img23.jpg');
+}
+
+.subscribe-bg {
+    background-image: url('../images/img16.jpg');
+}
+
+.contact-bg {
+    background-image: url('../images/img24.jpg');
+} 

@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <main id="content" class="site-main">
+
+        <!-- Home slider html start -->
+        <section class="home-slider-section">
+            <div class="home-slider">
+                {% for item in slider_items %}
+                    <div class="home-banner-items">
+                        <div class="banner-inner-wrap" style="background-image: url({{ item.image.url }})"></div>
+                        <div class="banner-content-wrap">
+                            <div class="container">
+                                <div class="banner-content text-center">
+                                    <h2 class="banner-title">Travel without borders</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <!-- slider html end -->
+
+        <!-- Home search field html start -->
+        <div class="trip-search-section shape-search-section">
+            <div class="slider-shape"></div>
+            <div class="container">
+                <div class="trip-search-inner white-bg d-flex">
+                    <div id="home_booking_message"></div>
+
+                    <form id="home_booking_form" action="{% url 'home_en' %}" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <!-- inputs -->
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" name="booking_email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Arrival</label>
+                            <input class="input-date-picker" type="text" name="booking_arrival_date"
+                                   placeholder="MM / DD / YY" autocomplete="off" readonly="readonly" required>
+                        </div>
+
+                        <div class="input-group width-col-3">
+                            <label>Guests</label>
+                            <input class="text-center" type="number" name="booking_guest_number" placeholder="Guests" required value="1">
+                        </div>
+                        <div class="input-group width-col-3">
+                            <label>Tours</label>
+                            <select name="booking_tour_id" id="booking_tour_id" required>
+                                <option value="">Choose a tour</option>
+                                {% for tour in tours_all %}
+                                    <option value="{{ tour.id }}">{{ tour.title_en }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group width-col-3">
+                            <label class="screen-reader-text">Book now</label>
+                            <input id="booking-submit" type="submit" name="home-book_submit" value="Book now">
+                        </div>
+                    </form>
+
+                    <div id="home-booking-message"></div>
+                </div>
+            </div>
+        </div>
+        <!-- search field html end -->
+
+
+        <section class="destination-section">
+            <div class="container">
+                <div class="section-heading">
+                    <div class="row align-items-end">
+                        <div class="col-lg-7">
+                            <h5 class="dash-style">POPULAR DESTINATION</h5>
+                            <h2>TOP NOTCH DESTINATIONS</h2>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="section-disc">
+                                The best places for unforgettable holidays and vivid impressions.
+                                Travel with comfort and style.
+                                Discover unique destinations, create unforgettable memories with us!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-inner destination-three-column">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                {% for category in categories %}
+                                    <div class="col-sm-4">
+                                        <div class="desti-item overlay-desti-item">
+                                            <figure class="desti-image">
+                                                <img src="{{ category.featured_image.url }}" alt="">
+                                            </figure>
+                                            <div class="desti-content">
+                                                <h3>
+                                                    <a href="{% url 'tours_list_by_category_en' category.pk %}">{{ category.name_en }}</a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                                <div class="col-sm-4">
+                                    <div class="desti-item overlay-desti-item">
+                                        <figure class="desti-image">
+                                            <img src="{% static 'images/destinations/aviak.jpg' %}" alt="">
+                                        </figure>
+                                        <div class="meta-cat bg-meta-cat">
+                                            <a href="#">Flights</a>
+                                        </div>
+                                        <div class="desti-content">
+                                            <h3>
+                                                <a href="{% url 'book_ticket_en' %}">Cheap flight tickets</a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Home activity section html start -->
+        <section class="activity-section activity-bg-image"
+                 style="background-image: url({% static 'images/home/services_bg4.jpg' %})">
+            <div class="container">
+                <div class="section-heading text-center">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <h2>WHY CHOOSE US?</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-inner row">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <h4>
+                                    <a href="#">Visa support</a>
+                                </h4>
+                            </div>
+                            <div class="activity-icon">
+                                <a href="#">
+                                    <img src="{% static 'images/home/services/1.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="activity-item">
+
+                            <div class="activity-content">
+                                <h4>
+                                    <a href="#">Airline booking</a>
+                                </h4>
+                            </div>
+                            <div class="activity-icon">
+                                <a href="#">
+                                    <img src="{% static 'images/home/services/2.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="activity-item">
+
+                            <div class="activity-content">
+                                <h4>
+                                    <a href="#">Hotel reservation</a>
+                                </h4>
+                            </div>
+                            <div class="activity-icon">
+                                <a href="#">
+                                    <img src="{% static 'images/home/services/3.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="activity-item">
+
+                            <div class="activity-content">
+                                <h4>
+                                    <a href="#">Transfer booking</a>
+                                </h4>
+                            </div>
+                            <div class="activity-icon">
+                                <a href="#">
+                                    <img src="{% static 'images/home/services/4.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="activity-item">
+
+                            <div class="activity-content">
+                                <h4>
+                                    <a href="#">Booking a train ticket</a>
+                                </h4>
+                            </div>
+                            <div class="activity-icon">
+                                <a href="#">
+                                    <img src="{% static 'images/home/services/5.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="activity-item">
+
+                            <div class="activity-content">
+                                <h4>
+                                    <a href="#">CIP hall booking</a>
+                                </h4>
+                            </div>
+                            <div class="activity-icon">
+                                <a href="#">
+                                    <img src="{% static 'images/home/services/6.3.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- activity html end -->
+
+
+        <!-- Home packages section html start -->
+        <section class="package-section">
+            <div class="container">
+                <div class="section-heading text-center">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <h5 class="dash-style">EXPLORE GREAT PLACES</h5>
+                            <h2>DISCOVER EXOTIC DESTINATIONS</h2>
+                            <p>Get ready for real adventures! Amazing places, new impressions and fun discoveries are
+                                ahead - each journey will become your common story</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="package-inner">
+                    <div class="row">
+                        {% for tour in tours_featured %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="package-wrap">
+                                    <figure class="feature-image">
+                                        <a href="#">
+                                            <img src="{{ tour.lists_page_image.url }}" alt="">
+                                        </a>
+                                    </figure>
+                                    <div class="package-price">
+                                        <h6>
+                                            {% if tour.price %}
+                                                <span>${{ tour.price | floatformat:0 }}</span>
+                                            {% else %}
+                                                <span>Price on request</span>
+                                            {% endif %}
+                                        </h6>
+                                    </div>
+                                    <div class="package-content-wrap">
+                                        <div class="package-meta text-center">
+                                            <ul>
+                                                <li>
+                                                    <i class="far fa-clock"></i>
+                                                    {{ tour.duration_days }} days
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    {{ tour.location_en }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="package-content">
+                                            <h3>
+                                                {% if tour.title_en %}
+                                                    <a href="{% url 'tour_detail_en' tour.pk %}">{{ tour.title_en }}</a>
+                                                {% endif %}
+                                            </h3>
+                                            {% if tour.short_description_en %}
+                                                <p>{{ tour.short_description_en }}</p>
+                                            {% endif %}
+                                            <div class="btn-wrap">
+                                                <a href="{% url 'tour_detail_en' tour.pk %}" class="button-text width-6">
+                                                    More
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- packages html end -->
+
+
+        <!-- Home callback section html start -->
+        <section class="callback-section">
+            <div class="container">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-lg-5">
+                        <div class="callback-img"
+                             style="background-image: url({% static 'images/contact/support.jpg' %})"></div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="callback-inner">
+                            <div class="section-heading section-heading-white">
+                                <h5 class="dash-style">CALLBACK FOR MORE</h5>
+                                <h2>GO TRAVEL. DISCOVER. REMEMBER US!</h2>
+
+                            </div>
+                            <div class="callback-counter-wrap">
+                                <div class="counter-item">
+                                    <div class="counter-icon">
+                                        <img src="{% static 'images/icon1.png' %}" alt="">
+                                    </div>
+                                    <div class="counter-content">
+                                    <span class="counter-no">
+                                    </span>
+                                        <span class="counter-text">
+                                       BEST GUIDES
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="counter-item">
+                                    <div class="counter-icon">
+                                        <img src="{% static 'images/icon2.png' %}" alt="">
+                                    </div>
+                                    <div class="counter-content">
+                                        <span class="counter-text">
+                                       BEST OFFERS & DISCOUNTS
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="counter-item">
+                                    <div class="counter-icon">
+                                        <img src="{% static 'images/icon3.png' %}" alt="">
+                                    </div>
+                                    <div class="counter-content">
+                                        <span class="counter-text">
+                                       PERSONALIZED APPROACH
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="counter-item">
+                                    <div class="counter-icon">
+                                        <img src="{% static 'images/icon4.png' %}" alt="">
+                                    </div>
+                                    <div class="counter-content">
+                                        <span class="counter-text">
+                                       BEST ROUTES
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="support-area">
+                                <div class="support-icon">
+                                    <img src="{% static 'images/icon5.png' %}" alt="">
+                                </div>
+                                <div class="support-content">
+                                    <h4>Our 24/7 Emergency Phone Services </h4>
+                                    <h3>
+                                        <a href="tel:+998887156000"> Call +998887156000</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- callback html end -->
+
+        <!-- Home testimonial section html start -->
+        <div class="testimonial-section" style="background-image: url({% static 'images/home/bg.png' %})">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1">
+                        <div class="testimonial-inner testimonial-slider">
+                            <div class="testimonial-item text-center">
+                                <figure class="testimonial-img">
+                                    <img src="{% static 'images/testimonial/t1.jpg' %}" alt="">
+                                </figure>
+                                <div class="testimonial-content">
+                                    <p>"It was an amazing trip! Everything was well organized, the route was thought out
+                                        to the smallest detail. I fell in love with the atmosphere of the city and will
+                                        definitely come back again!"</p>
+                                    <cite>
+                                        Laura, Germany
+                                        <span class="company">Tourist</span>
+                                    </cite>
+                                </div>
+                            </div>
+                            <div class="testimonial-item text-center">
+                                <figure class="testimonial-img">
+                                    <img src="{% static 'images/testimonial/t2.jpg' %}" alt="">
+                                </figure>
+                                <div class="testimonial-content">
+                                    <p>" Excellent service and warm welcome! Nature, architecture and food exceeded all
+                                        my expectations. Thanks to the team for an unforgettable experience. "</p>
+                                    <cite>
+                                        Ahmed, Turkiye
+                                        <span class="company">Tourist</span>
+                                    </cite>
+                                </div>
+                            </div>
+                            <div class="testimonial-item text-center">
+                                <figure class="testimonial-img">
+                                    <img src="{% static 'images/testimonial/t3.jpg' %}" alt="">
+                                </figure>
+                                <div class="testimonial-content">
+                                    <p>"Every day was full of discoveries! We liked the care for tourists and attention
+                                        to details. Samarkand left a warm mark in our hearts."</p>
+                                    <cite>
+                                        Sophia, USA
+                                        <span class="company">Tourist</span>
+                                    </cite>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- testimonial html end -->
+    </main>
+
+    <script>
+        $('#home_booking_form').on('submit', function (e) {
+            e.preventDefault();
+
+            $('#home_booking_message').html('');
+
+            let form_data = $(this).serialize();
+            let csrfToken = $("#csrf_token").val();
+
+
+            $.ajax({
+                url: "{% url 'home_en' %}",
+                headers: {"X-CSRFToken": csrfToken},
+                method: "POST",
+                data: form_data,
+                success: function (response) {
+                    if (response.success) {
+                        {#alert(response.success);#}
+                        $('#home_booking_message').html('<p style="color: green;">' + response.success + '</p>');
+                        $('#home_booking_form')[0].reset();
+
+                        setTimeout(function () {
+                            $('#home_booking_message').fadeOut('slow', function () {
+                                $(this).html('').show();
+                            });
+                        }, 5000);
+                    } else if (response.error) {
+                        alert(response.error);
+                    }
+                },
+                error: function (error) {
+                    {#alert("Бронирование принято! Мы свяжемся с вами в ближайшее время");#}
+                    $('#home_booking_message').html('<p style="color: green; text-align: center"> Booking confirmed! We will contact you soon</p>');
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

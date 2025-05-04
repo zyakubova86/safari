@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Uzbekistan{% endblock %}
+
+{% block content %}
+    <main id="content" class="site-main">
+        <!-- Inner Banner html start-->
+        <section class="inner-banner-wrap inner-banner-gray">
+            <div class="inner-baner-container"
+                 style="background-image: url({% static 'images/uzbekistan/banner_uz.jpg' %});">
+                <div class="container">
+                    <div class="inner-banner-content">
+                        <h1 class="inner-title">Uzbekistan</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-shape"></div>
+        </section>
+        <!-- Inner Banner html end-->
+
+        <!-- main content-->
+        <div class="single-tour-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="single-tour-inner">
+                            <h2 class="text-center">Why visit Uzbekistan?</h2>
+                            <p> Uzbekistan is a country with a rich historical and cultural heritage, located in the
+                                heart of Central Asia. It is a place where the legends of the Great Silk Road come to
+                                life, and ancient cities like Samarkand, Bukhara, and Khiva still preserve the spirit of
+                                millennia.
+                                Samarkand, with its grand Registan Square, Bukhara with the majestic Poi Kalyan
+                                ensemble, and Khiva with its stunning Ichan-Kala fortress, are true open-air museums.
+                                These cities not only amaze with their architecture but also offer a deep immersion into
+                                the culture and traditions of the East. </p>
+                            <p> The hospitality of the Uzbek people is another reason to visit Uzbekistan. Here, you
+                                will be greeted with a warm smile, openness, and heartfelt kindness. Uzbek cuisine is a
+                                true culinary gem of the region. Dishes like plov, samsa, lagman, manti, and many others
+                                will delight any gourmet. Moreover, Uzbekistan is rapidly developing. Modern hotels are
+                                being built, a network of high-speed trains is operating, and tourism services are
+                                improving — all of this makes traveling around the country comfortable and
+                                enriching.</p>
+                            <p> Uzbekistan is a unique place where antiquity and modernity meet, where every street
+                                breathes history, and every day brings new impressions. If you're looking for a journey
+                                with soul — Uzbekistan is the perfect destination for you. </p>
+
+
+                            <div id="uzbekistan-tab-container" class="tab-container">
+                                <ul class="nav nav-tabs nav-underline" id="myTab" role="tablist">
+                                    {% for cat in cats_uzbekistan %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if forloop.first %}active{% endif %}"
+                                               id="tab-{{ cat.pk }}" data-toggle="tab"
+                                               href="#tab-pane-{{ cat.pk }}" role="tab"
+                                               aria-controls="tab-pane-{{ cat.pk }}"
+                                               aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                                                <h5>{{ cat.name_en }}</h5>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    {% for cat in cats_uzbekistan %}
+                                        <div class="tab-pane fade {% if forloop.first %}show active{% endif %}"
+                                             id="tab-pane-{{ cat.pk }}"
+                                             role="tabpanel" aria-labelledby="tab-{{ cat.pk }}">
+                                            <div class="overview-content">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+                                                        <figure class="feature-image mb-0">
+                                                           <img class="img-fluid w-100 rounded" src="{{ cat.image.url }}" alt="" style="min-height: 250px; object-fit: cover !important; border-radius: 8px;">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                                        <div class="uzb_tab_text">
+                                                            <p>{{ cat.text_en | safe }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+
+                            <div class="single-tour-gallery">
+                                <h3>Main cities of Uzbekistan</h3>
+
+                                <div class="uzbekistan_cities_slider">
+                                    {% for city in cities %}
+                                        <div id="uzbekistan-city" class="desti-item">
+                                            <figure class="desti-image uzbekistan-image">
+                                                <img src="{{ city.image.url }}" alt="">
+                                            </figure>
+                                            <div class="meta-cat bg-meta-cat">
+                                                <a href="#">{{ city.name_en }}</a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end main content-->
+    </main>
+
+{% endblock %}
