@@ -25,7 +25,8 @@ def home(request):
             tour_id = request.POST.get('booking_tour_id')
 
             tour = Tours.objects.get(pk=tour_id)
-            arrival_date = datetime.strptime(arrival_date_raw, "%m/%d/%Y").date()
+            # print("arrival_date_raw:", arrival_date_raw)
+            arrival_date = datetime.strptime(arrival_date_raw, "%d/%m/%Y").date()
 
             # print("tour data:", email, arrival_date, guest_number, tour_id)
 
@@ -52,7 +53,7 @@ def home(request):
 
         except Exception as e:
             print("error:", e)
-            return JsonResponse({'error': 'Произошла ошибка'}, status=500)
+            return JsonResponse({'error': 'Произошла ошибка сервера'}, status=500)
 
     context = {
         'tours_all': tours_all,
