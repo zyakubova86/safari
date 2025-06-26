@@ -1,6 +1,8 @@
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from django.db import models
+from django.template.defaultfilters import slugify
+
 
 class UzbekistanCategory(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название', )
@@ -116,6 +118,9 @@ class Tours(models.Model):
     # def get_absolute_url(self):
     #     return f"/tours/{self.slug}/"
 
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Тур"
